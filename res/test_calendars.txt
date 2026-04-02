@@ -1,0 +1,80 @@
+create calendar --name TestCal --timezone America/New_York
+use calendar --name TestCal
+create event SingleEvent from 2024-03-15T10:00 to 2024-03-15T11:00
+print events on 2024-03-15
+create event "All Day Event" on 2024-03-16
+print events on 2024-03-16
+create event "Recurring Daily" from 2024-03-18T09:00 to 2024-03-18T09:30 repeats MTWRF for 5 times
+print events from 2024-03-18T00:00 to 2024-03-25T23:59
+create event "Recurring Until" from 2024-03-20T14:00 to 2024-03-20T15:00 repeats MW until 2024-04-10
+print events from 2024-03-20T00:00 to 2024-04-15T23:59
+edit event subject SingleEvent from 2024-03-15T10:00 with UpdatedEvent
+print events on 2024-03-15
+edit event location UpdatedEvent from 2024-03-15T10:00 with "Room 101"
+edit event description UpdatedEvent from 2024-03-15T10:00 with "Important meeting"
+print events on 2024-03-15
+edit events subject "Recurring Daily" from 2024-03-20T09:00 with "Morning Standup"
+print events from 2024-03-18T00:00 to 2024-03-25T23:59
+edit series location "Recurring Until" from 2024-03-20T14:00 with "Conference Room A"
+print events from 2024-03-20T00:00 to 2024-04-15T23:59
+show status on 2024-03-15T10:30
+show status on 2024-03-15T09:00
+create calendar --name WorkCal --timezone America/Los_Angeles
+create calendar --name PersonalCal --timezone Europe/London
+use calendar --name WorkCal
+create event "LA Meeting" from 2024-03-20T10:00 to 2024-03-20T11:00
+print events on 2024-03-20
+use calendar --name TestCal
+copy event UpdatedEvent on 2024-03-15T10:00 --target WorkCal to 2024-03-21T14:00
+use calendar --name WorkCal
+print events on 2024-03-21
+use calendar --name TestCal
+copy events on 2024-03-15 --target PersonalCal to 2024-04-01
+use calendar --name PersonalCal
+print events on 2024-04-01
+use calendar --name TestCal
+create event Event1 from 2024-03-25T09:00 to 2024-03-25T10:00
+create event Event2 from 2024-03-26T09:00 to 2024-03-26T10:00
+create event Event3 from 2024-03-27T09:00 to 2024-03-27T10:00
+copy events between 2024-03-25 and 2024-03-27 --target WorkCal to 2024-05-01
+use calendar --name WorkCal
+print events from 2024-05-01T00:00 to 2024-05-05T23:59
+use calendar --name TestCal
+export cal test_export.csv
+export cal test_export.ical
+edit calendar --name TestCal --property name RenamedCal
+use calendar --name RenamedCal
+print events on 2024-03-15
+edit calendar --name WorkCal --property timezone America/Chicago
+use calendar --name WorkCal
+print events on 2024-03-20
+create event ConflictTest1 from 2024-04-10T10:00 to 2024-04-10T11:00
+create event ConflictTest2 from 2024-04-10T10:30 to 2024-04-10T11:30
+print events on 2024-04-10
+create event office-hours-cs5010 from 2024-03-11T10:00 to 2024-03-11T12:00
+create event office-hours-cs4300 from 2024-03-12T10:00 to 2024-03-12T12:00
+create event office-hours-cs5010-2 from 2024-03-13T10:00 to 2024-03-13T12:00
+print events from 2024-03-11T00:00 to 2024-03-13T23:59
+edit event subject office-hours-cs5010-2 from 2024-03-13T10:00 with office-hours-cs5010-second
+print events on 2024-03-13
+create event "Recurring Series" from 2024-04-15T10:00 to 2024-04-15T11:00 repeats MWF for 6 times
+print events from 2024-04-15T00:00 to 2024-05-01T23:59
+edit events location "Recurring Series" from 2024-04-17T10:00 with "Room B"
+print events from 2024-04-15T00:00 to 2024-05-01T23:59
+use calendar --name RenamedCal
+create event "Multi-day Event" from 2024-05-10T20:00 to 2024-05-12T10:00
+print events on 2024-05-11
+show status on 2024-05-11T08:00
+create event BackToBack1 from 2024-05-15T10:00 to 2024-05-15T11:00
+create event BackToBack2 from 2024-05-15T11:00 to 2024-05-15T12:00
+print events on 2024-05-15
+show status on 2024-05-15T11:00
+use calendar --name WorkCal
+create event "Final Export Event" from 2024-06-01T09:00 to 2024-06-01T10:00
+export cal work_final.csv
+export cal work_final.ical
+create event "Weekend Brunch" on 2024-06-02 repeats U for 4 times
+print events from 2024-06-01T00:00 to 2024-06-30T23:59
+create event "Thursday Special" on 2024-06-06 repeats R until 2024-06-27
+print events from 2024-06-01T00:00 to 2024-06-30T23:59
+exit

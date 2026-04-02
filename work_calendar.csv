@@ -1,0 +1,14 @@
+Subject,Start Date,Start Time,End Date,End Time,All Day Event,Description,Location,Private
+Project Kickoff,11/20/2025,10:00,11/20/2025,12:00,False,,,False
+Client Call,11/21/2025,15:00,11/21/2025,16:00,False,,,False
+Code Review,11/25/2025,13:00,11/25/2025,14:00,False,,,False
+Code Review,11/26/2025,13:00,11/26/2025,14:00,False,,,False
+Code Review,11/27/2025,13:00,11/27/2025,14:00,False,,,False
+Code Review,11/28/2025,13:00,11/28/2025,14:00,False,,,False
+Code Review,12/02/2025,13:00,12/02/2025,14:00,False,,,False
+Code Review,12/03/2025,13:00,12/03/2025,14:00,False,,,False
+Code Review,12/04/2025,13:00,12/04/2025,14:00,False,,,False
+Code Review,12/05/2025,13:00,12/05/2025,14:00,False,,,False
+Morning Workout,11/22/2025,03:00,11/22/2025,04:00,False,,,False
+Sprint Planning,11/22/2025,07:00,11/22/2025,08:00,False,Quarterly sprint planning session,Conference Room A,True
+Lunch Break,11/22/2025,09:00,11/22/2025,10:00,False,,,False

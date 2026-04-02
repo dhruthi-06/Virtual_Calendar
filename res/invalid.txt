@@ -1,0 +1,40 @@
+create calendar --name TestCal --timezone America/New_York
+use calendar --name TestCal
+create event "Valid Event" from 2025-11-15T10:00 to 2025-11-15T11:00
+create calendar --name TestCal --timezone America/Chicago
+use calendar --name NonExistentCalendar
+create event MissingSubject from 2025-11-15T10:00 to 2025-11-15T11:00
+create event "No Time Info"
+edit event subject "Valid Event" from 2025-11-15T10:00 with
+create event "End Before Start" from 2025-11-15T15:00 to 2025-11-15T10:00
+create calendar --name InvalidTimezone --timezone Mars/Olympus
+create event "Bad Date Format" from 15-11-2025T10:00 to 2025-11-15T11:00
+create event "Missing To" from 2025-11-15T10:00
+edit event invalidproperty "Valid Event" from 2025-11-15T10:00 with "New Value"
+copy event "NonExistent" on 2025-11-15T10:00 --target TestCal to 2025-11-16T10:00
+edit calendar --name TestCal --property name
+edit calendar --name DoesNotExist --property timezone America/New_York
+create event "Bad Weekday" from 2025-11-15T10:00 to 2025-11-15T11:00 repeats XYZ for 5 times
+create event "Multi-day Recurring" from 2025-11-15T10:00 to 2025-11-16T11:00 repeats MW for 5 times
+show status on 2025-15-15T10:00
+export cal
+print events on 2025-13-01
+copy events on 2025-11-15 --target NonExistent to 2025-11-16
+edit event status "Valid Event" from 2025-11-15T10:00 with maybe
+create event "Same As Existing" from 2025-11-15T10:00 to 2025-11-15T11:00
+use calendar
+create calendar --name --timezone America/New_York
+print events from 2025-11-15T10:00
+wrong command
+create
+edit
+copy
+print
+export
+show
+show calendar dashboard
+show calendar dashboard from 2025-11-15
+show calendar dashboard from 2025-11-30 to 2025-11-15
+show calendar dashboard from 2025-13-01 to 2025-11-30
+show calendar dashboard from 2025-11-15 to invalid-date
+exit

@@ -1,0 +1,54 @@
+create calendar --name Personal --timezone America/New_York
+create calendar --name Work --timezone America/Los_Angeles
+create calendar --name School --timezone America/Chicago
+use calendar --name Personal
+create event "Morning Workout" from 2025-11-15T06:00 to 2025-11-15T07:00
+create event "Team Meeting" from 2025-11-15T10:00 to 2025-11-15T11:00
+create event "Lunch Break" from 2025-11-15T12:00 to 2025-11-15T13:00
+create event "Doctor Appointment" from 2025-11-16T14:00 to 2025-11-16T15:00
+create event Holiday on 2025-12-25
+create event "CS5010 Lecture" from 2025-11-18T14:00 to 2025-11-18T16:30 repeats MW for 10 times
+create event "Office Hours" from 2025-11-19T15:00 to 2025-11-19T17:00 repeats RF until 2025-12-20
+create event "Daily Standup" from 2025-11-18T09:00 to 2025-11-18T09:15 repeats MTWRF for 20 times
+create event "Gym Day" on 2025-11-20 repeats MWF for 12 times
+create event "Weekend Hiking" on 2025-11-23 repeats SU until 2025-12-31
+print events on 2025-11-15
+print events from 2025-11-15T00:00 to 2025-11-30T23:59
+show status on 2025-11-15T10:30
+show status on 2025-11-15T08:00
+show calendar dashboard from 2025-11-15 to 2025-11-30
+show calendar dashboard from 2025-12-01 to 2025-12-31
+edit event subject "Team Meeting" from 2025-11-15T10:00 with "Sprint Planning"
+edit event location "Sprint Planning" from 2025-11-15T10:00 with "Conference Room A"
+edit event description "Sprint Planning" from 2025-11-15T10:00 with "Quarterly sprint planning session"
+edit event status "Sprint Planning" from 2025-11-15T10:00 with private
+edit events subject "CS5010 Lecture" from 2025-11-25T14:00 with "CS5010 Advanced Topics"
+edit series location "CS5010 Advanced Topics" from 2025-11-25T14:00 with "Room 301"
+use calendar --name Work
+create event "Project Kickoff" from 2025-11-20T10:00 to 2025-11-20T12:00
+create event "Client Call" from 2025-11-21T15:00 to 2025-11-21T16:00
+create event "Code Review" from 2025-11-22T13:00 to 2025-11-22T14:00 repeats TWRF for 8 times
+copy event "Project Kickoff" on 2025-11-20T10:00 --target Personal to 2025-11-27T10:00
+use calendar --name Personal
+copy events on 2025-11-15 --target Work to 2025-11-22
+copy events between 2025-11-18 and 2025-11-20 --target School to 2025-12-02
+use calendar --name Work
+print events on 2025-11-22
+show calendar dashboard from 2025-11-20 to 2025-11-25
+export cal work_calendar.csv
+use calendar --name Personal
+export cal personal_calendar.ical
+edit calendar --name School --property timezone Europe/London
+edit calendar --name School --property name Academic
+use calendar --name Academic
+create event "Final Exam" from 2025-12-15T09:00 to 2025-12-15T12:00
+print events on 2025-12-15
+use calendar --name Personal
+create event "Birthday Party" from 2025-12-01T18:00 to 2025-12-01T22:00
+edit event start "Birthday Party" from 2025-12-01T18:00 with 2025-12-01T19:00
+edit event end "Birthday Party" from 2025-12-01T19:00 with 2025-12-01T23:00
+show status on 2025-12-01T20:00
+print events from 2025-12-01T00:00 to 2025-12-31T23:59
+show calendar dashboard from 2025-12-01 to 2025-12-31
+help
+exit
