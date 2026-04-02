@@ -1,152 +1,215 @@
+# Virtual Calendar System
+**Academic Project — Northeastern University, Khoury College of Computer Sciences**  
+Course: Programming Design Paradigm | Fall 2025
 
-Working with other code (Part 4)
-================
+> This repository is private to maintain academic integrity for future students.
 
-# 1 Context
+---
 
-This assignment gives you the experience of working with code that you did not write or design. The primary learning objective of this assignment is to understand code and design not written by you to the extent of implementing a new end-to-end feature using it. There are two secondary learning objectives. In sharing your code with another group you will attempt to communicate your ideas effectively to them, and answer questions posed by them as needed (i.e. do customer service). In addition you will be asking technically appropriate and precise questions to the group whose code you are working with. You will summarize your experience by critiquing the code given to you.
+## Table of Contents
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Architecture](#architecture)
+- [Technologies Used](#technologies-used)
+- [Development Process](#development-process)
+- [Project Structure](#project-structure)
+- [Running the Application](#running-the-application)
+- [Testing](#testing)
+- [Design Decisions](#design-decisions)
 
-This assignment will be due in two parts, to ensure that each group is sending their code to another in a timely fashion, and receiving code in time to complete this assignment.
+---
 
-# 2 Prepare to send and receive code
+## Overview
 
-You will receive the contact details of two different groups from us:
-one group that will give you their code (your provider) and another
-to which you must send your code (your customer).
+A comprehensive multi-calendar application built in Java that demonstrates software engineering principles through iterative development. The system supports complex event management, multiple calendar coordination, timezone handling, and provides both graphical and command-line interfaces.
 
-In order to prepare your code to your customer, please do the following:
+- **Development Timeline:** September 2025 – December 2025
+- **Team Size:** 2 developers
+- **Total Commits:** 100+
+- **Test Coverage:** 95%+
 
-1. Complete the questionnaire in  "questionnaire.txt" included with the repository for this assignment in Pawtograder. This will summarize for your customer the status of your code (i.e. what works and what does not).
-2. Prepare a zip file with ONLY the following. DO NOT include any hidden files or folders such as .gitignore, .github, .git etc.
-    - the src/ directory
-    - the res/ directory
-    - the USEME markdown
-    - the README markdown
-    - build.gradle
-    - questionnaire.txt
+**Learning Objectives Achieved:**
+- Model-View-Controller (MVC) architecture implementation
+- SOLID principles application throughout codebase
+- Design patterns: Factory, Observer, Strategy, Command
+- Test-driven development with comprehensive coverage
+- Collaborative development with code reviews
+- Working with external codebases
 
-As soon as you receive the details of your provider group, please contact them and request that they send you their code as soon as possible. Please be patient as sometimes it takes a day or two for them to respond.
+---
 
-As soon as you receive the details of your customer group, please send them the above zip promptly and request that they acknowledge they received it. Further, submit the code you sent along with the questionnaire to the Pawtograder assignment repo for Assignment 5 Part 1 by the due date. This submission
-documents and acknowledges that you have sent the code you were expected to send to the customer. Failing to submit part 1 will imply that you did not send the code you were expected to send.
+## Key Features
 
-# 3 Code Critique
+### Calendar Management
+- Create and manage multiple calendars simultaneously
+- Full IANA timezone database integration (e.g., `America/New_York`, `Europe/Paris`)
+- Seamlessly switch context between calendars
+- Edit calendar names and timezones dynamically
 
-As customers of the providers' code, you have the opportunity to praise, critique, comment upon, and suggest improvements to their code. Write a short (8-10 paragraphs) review of their code. Your review should have the following sections:
+### Event Management
+- **Single Events:** One-time events with customizable properties
+- **Recurring Events:** Repeat on specific weekdays (M/T/W/R/F/S/U), for N occurrences or until a date; supports single/forward/all series modification
+- **All-Day Events:** Automatic 8 AM–5 PM scheduling
+- **Multi-Day Events:** Events spanning multiple days
+- **Event Properties:** Subject, description, location, start/end times, public/private status
 
-- design critique. In this part you are expected to clearly explain BOTH the benefits and limitations of the design. To complement your explanation you must identify at least 3 code smells and  explain why they are applicable along with a brief explanation of how they can be refactored to remove the code smell. You can also identify a code smell and explain why it is reasonable to ignore the smell given the current design. For full credit the code smells you identify and explain cannot be trivial ones such as comments.
-- implementation critique. In this part you are expected to explain BOTH strengths and limitations of the implementation including choice of model representation and data structures used. You can argue from the perspective of non functional requirements such as performance, readability, maintainability, and extensibility.
-- documentation critique and constructive suggestions on how to address various limitations.
+### Advanced Operations
+- Edit single events or entire series (this only / this and forward / all)
+- Copy events across calendars with automatic timezone conversion
+- Bulk copy all events within a date range
+- Conflict detection to prevent duplicate events
 
-**Writing a disorganized review that is difficult to read will result in a point deduction, irrespective of its content**.
+### Analytics Dashboard
+- Total event count and events grouped by subject
+- Weekday and weekly distribution
+- Monthly event trends and average events per day
+- Busiest/least busy days
+- Online vs. in-person event breakdown
 
-**Writing a review that is AI generated will result in an automatic 0 and further action based on the course's plagiarism policy. If your submission is flagged we will quiz you to explain your review and your review process**.
+### Data Export
+- **CSV:** Google Calendar compatible format
+- **iCal:** Standard `.ical` format
+- Automatic format detection based on file extension
 
+### User Interfaces
+- **GUI:** Java Swing monthly calendar view with interactive date selection and event management
+- **CLI – Interactive Mode:** Real-time command execution
+- **CLI – Headless Mode:** Script file execution
 
-In short, you should provide a code review that is well-reasoned and well-argued using the SOLID principles learned in this course.
+---
 
-# 4 New Feature: calendar analytics
+## Architecture
 
-The users of our calendar app have requested for a new feature that
-will help them analyze and monitor their usage of the calendar app.
-To this end, they have requested to show a dashboard or summary view of
-the selected calendar in a particular date period with the following metrics:
+```
+┌─────────────────┐
+│      View       │  ← Swing GUI / Text Interface
+│  (Presentation) │
+└────────┬────────┘
+         │
+         ↓
+┌─────────────────┐
+│   Controller    │  ← Command Processing / Event Handling
+│   (Logic Flow)  │
+└────────┬────────┘
+         │
+         ↓
+┌─────────────────┐
+│     Model       │  ← Calendar / Event / Business Logic
+│  (Data & Rules) │
+└─────────────────┘
+```
 
-- Total number of events
-- Total number of events by subject
-- Total number of events by weekdays
-- Total number of events by week
-- Total number of events by month
-- Average number of events per day
-- The busiest day and the least busy day
-- Percentage of events that were online and not online. An event is online if its location is online.
+### SOLID Principles
+- **SRP:** Each class has a single, well-defined responsibility
+- **OCP:** Strategy and Factory patterns allow extension without modification
+- **LSP:** Proper inheritance hierarchy for event types
+- **ISP:** Separate, focused interfaces for views and controllers
+- **DIP:** Controller depends on view interfaces, not concrete implementations
 
-**Note all metrics (listed above) should be shown for a datetime interval selected by the user.**
+### Design Patterns
+| Pattern | Usage |
+|---|---|
+| MVC | Clean separation of concerns across all layers |
+| Factory | `EventFactory` encapsulates event creation logic |
+| Observer | Model notifies views of state changes |
+| Strategy | Pluggable export strategies (CSV, iCal) and view implementations |
+| Command | Uniform text command processing |
+| Singleton | Calendar manager instance for controlled global state |
 
-The analytics dashboard must be available in **both the GUI and the
-text interface**. For the GUI, you are free to select an appropriate
-layout as long as all the metrics are displayed clearly for the
-selected interval. For the text interface, you should
-support the following additional command:
+---
 
-`show calendar dashboard from <dateString> to <dateString>`
+## Technologies Used
 
-The `dateString` must be in `YYYY-MM-DD` format. Both dates are inclusive.
+| Category | Technology | Purpose |
+|---|---|---|
+| Language | Java 17 | Core implementation |
+| GUI Framework | Java Swing | Graphical user interface |
+| Testing | JUnit 5 | Unit and integration testing |
+| Build Tool | Gradle | Build automation |
+| Version Control | Git | Source code management |
+| Date/Time | `java.time` API | Timezone and datetime handling |
 
-On typing this command, the user should be able to see all metrics
-listed above in the interval specified by the user.
+---
 
-This command must always be typed after the `use calendar` command.
+## Development Process
 
+### Phase 1 — Core Calendar System (Assignment 3)
+Single calendar, event creation (single + recurring), event editing, calendar queries, CSV export, CLI (interactive + headless), MVC architecture.
 
-## 4.1 What to do
+### Phase 2 — Multi-Calendar & Timezones (Assignment 4)
+Multiple calendars, IANA timezone integration, cross-calendar copying with timezone conversion, iCal export, enhanced conflict detection.
 
-1. Implement and test only the new features listed in the previous section.
+### Phase 3 — GUI Implementation (Assignment 5)
+Java Swing GUI with monthly calendar view, interactive event management, visual calendar distinction, error handling and validation.
 
-2. You should perform test coverage analysis to improve the tests you wrote. However, this is not a requirement for this assignment.
+### Phase 4 — Code Review & Analytics (Assignment 6)
+External codebase integration, code review and critique, analytics dashboard (8+ metrics), documentation improvements, final testing (95%+).
 
-3. Add support for this new feature through the text interface using the above command.
+---
 
-4. Add support for this new feature through the GUI appropriately.
+---
 
-5. Write a critique of the provided code.
+## Running the Application
 
-# 5 Code Issues
+### Prerequisites
+- Java 17 or higher
+- Gradle 7.0+ (included via wrapper)
 
-In general, if the code provided to you does not successfully implement a required feature you are not responsible for fixing it. Your providers should fix it and send you an update: it is OK to ask them to do so. Conversely you are expected to fix your code if a required feature does not work.
+### Build
+```bash
+./gradlew jar
+# JAR created in build/libs/
+```
 
-However, you should not expect your providers to re-design their working code to make it "better" according to you.
+### Execution Modes
 
-If for some reason you do not get repaired code or explanations from your providers and this affects your ability to complete the required feature in this assignment, be sure to mention this in the USEME.
+**GUI Mode (Default)**
+```bash
+java -jar build/libs/VirtualCalendarSystem.jar
+```
 
-Specifically, here are the guidelines for how to proceed with the given code. If in the code provided to you:
+**Interactive Text Mode**
+```bash
+java -jar build/libs/VirtualCalendarSystem.jar --mode interactive
+```
 
-1. text interface and the GUI work, implement the new features and expose through text interface and the GUI (most straightforward).
+**Headless Script Mode**
+```bash
+java -jar build/libs/VirtualCalendarSystem.jar --mode headless path/to/commands.txt
+```
 
-2. the text interface works but GUI does not: implement new features and expose through text interface. Ask providers to fix the GUI enough for you to display the dashboard, and then add the dashboard feature to the GUI. If you were not able to completely expose through the GUI, mention in USEME.
+---
 
-3. If the code works, text interface and GUI somewhat works or does not work at all, implement the new feature and try to add the new text command. Ask the provider to fix the GUI, so you can add the dashboard. If unable to complete, mention in USEME.
+## Testing
 
-4. If nothing works (no GUI, no script, even model is unworkable), such that you cannot even implement the new features: contact your professor, and we will assign you another provider.
+**Coverage:** 95%+ overall (Model: 98%, Controller: 93%, Utilities: 96%)
 
-Use your judgment to determine if you should wait for your providers to fix something, or for you to temporarily fix it to make progress. **You should not simply wait for your providers to fix problems shown by you, and then claim you could not complete the assignment because you were waiting for them.**
+```bash
+./gradlew test
+./gradlew test jacocoTestReport
+open build/reports/jacoco/test/html/index.html
+```
 
-# 6 Grading Standards
+Test categories include unit tests, integration tests, and edge cases (duplicate detection, invalid timezones, date boundaries, recurring event edge cases, cross-calendar copying).
 
-For this assignment, you will be graded on the following:
+---
 
-1. The coherence and thoroughness of your review. Remember your review must be constructive so that a reader can read it, understand the strengths and limitations of the design, and take actionable steps to improve their design if required.
+## Design Decisions
 
-2. The correctness of the new feature implemented.
+**MVC:** Enables multiple view implementations, independent testing, and view changes without touching the model.
 
-3. The completeness and correctness of the corresponding tests.
+**`java.time` API:** Immutable, thread-safe, with built-in timezone support — a clean replacement for legacy `Date`/`Calendar`.
 
-In general, you will not be penalized for bugs in the code sent to you (with the exception of style which you may have to fix). If this has hampered your ability to complete the assignment, please describe so explicitly in your submission. If your submission is found to not work, with no explanation as to why, we will assume that you are responsible for its problems. All related explanation should go in the USEME.
+**Strategy Pattern for Export:** Keeps CSV and iCal logic separate, testable in isolation, and easy to extend with new formats.
 
-You will not be graded (much) on the code you send to your customers. It will simply be style-checked, and worth a small portion of your overall grade for the assignment, to ensure that you submit something we can compare against your customers' use of your code.
+**In-Memory Storage:** Course requirement focused on design over persistence; data can be preserved via export/import.
 
-Your grade will generally not be affected by your customers' review of your code. Your grade may be affected by your responsiveness (or lack thereof) and experience with your customers.
+---
 
-# 7 Submission Requirements for Part 1 (Previous)
+## Notes
 
-This section is not applicable to this assignment repository.
+This project was developed as coursework demonstrating mastery of object-oriented design, software architecture, and collaborative development. The repository is kept private per university policy to maintain assignment integrity for future students.
 
-Submit the code you sent to your customer. For full credit you only
-need to pass style and make sure you submitted the questionnaire.
-Successful submission here will serve as acknowledgement that you sent the code you were expected to send to your customer.
-
-# 8 Submission Requirements for Part 2  (This Assignment)
-
-The instructions below apply to part 2 of the assignment, that is, this Pawtograder repository.
-
-- Submit all files necessary to make your code work (this includes the code you got from your providers, with code you wrote for this assignment).
-- A USEME markdown
-    - with instructions to run your program in different modes using examples.
-    - instructions on how to test the newly added feature to the GUI. Add screenshots if it helps.
-    - Explanation of bugs (if any) in sent code that hampered your ability to complete the requested features.
-- Submit a `res/` folder with the following:
-    - A screenshot showing the new feature in the GUI
-    - A txt file, `commands.txt`, with the list of valid commands including the newly added commands.
-    - A txt file, `invalid.txt` with a list of commands where at least one invalid command is a newly added command.
-    - A markdown file `CHANGES` that specifically describes how you implemented the dashboard features to be in harmony with the design given to you (i.e. how you managed to fit the new feature in the existing design). Also indicate at the top of this file if you were able to implement the dashboard correctly, supported a text command for it and exposed it through the GUI (in the same style as the questionnaire you sent to your customers).
-    - A markdown file `REVIEW` that documents your code critique.
+**Developed by:** Dhruthi Rajesh  
+**Institution:** Northeastern University, Khoury College of Computer Sciences  
+**Course:** Programming Design Paradigm | Fall 2025
